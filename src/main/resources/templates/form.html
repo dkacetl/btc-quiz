@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/icon.jpeg">
+
+    <title>Hackni Raspberry Pi a získej Bitcoin</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/floating-labels/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/css/floating-labels.css" rel="stylesheet">
+</head>
+
+<body>
+<form class="form-signin" action="#" th:action="@{/process-form}" th:object="${userEntity}"  method="post">
+    <div class="text-center mb-4">
+        <img class="mb-5" src="/openmatics-s-r-o.png" alt="" width="200" >
+        <h1 class="h1 mb-10 font-weight-normal">Gratulujeme</h1>
+        <p>Úspěšně jsi hackul systém. Nyní vyplň jenoduchý formulář, odměnu máš nadosah.</p>
+    </div>
+
+    <div class="form-label-group">
+        <input th:field="*{email}" type="email" id="email" class="form-control" placeholder="Email address" required autofocus />
+        <label for="email">Email address</label>
+    </div>
+
+    <div class="form-label-group">
+        <input type="text" th:field="*{phone}" id="phone" class="form-control" placeholder="608 999 999" required />
+        <label for="phone">Telefonní číslo</label>
+    </div>
+
+    <div class="form-label-group">
+        <input type="text" id="nickname" class="form-control" placeholder="Nickname" required>
+        <label for="nickname">Nickname</label>
+    </div>
+
+    <div class="form-label-group">
+        <input type="text" id="technologies" class="form-control" placeholder="Linux, Java, PHP, Nette, Spring..." required>
+        <label for="technologies">Oblíbené technologie</label>
+    </div>
+
+    <div class="form-label-group">
+        <input type="text" id="accomplishments" class="form-control" placeholder="FAV, Gympl, druhák na vejšce ..." required>
+        <label for="accomplishments">Vzdělání</label>
+    </div>
+
+    <div class="form-label-group">
+        <input type="text" id="age" class="form-control" placeholder="Věčně mlád..." required>
+        <label for="age">Věk</label>
+    </div>
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Odeslat</button>
+
+    <p class="mt-5 mb-3 text-muted text-center">&copy; 2010-2019</p>
+</form>
+</body>
+</html>

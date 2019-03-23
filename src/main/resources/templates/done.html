@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/icon.jpeg">
+
+    <title>Hackni Raspberry Pi a získej Bitcoin</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/floating-labels/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/css/floating-labels.css" rel="stylesheet">
+</head>
+
+<body>
+<form class="form-signin" action="#" th:action="@{/process-form}" th:object="${userEntity}"  method="post">
+    <div class="text-center mb-4">
+        <h1 class="h1 mb-10 font-weight-normal">Děkujeme!</h1>
+        <p>Hotovo, zde si můžete stáhnout své Bitcoin mince</p>
+
+        <img th:src="@{'/wallets/' + ${userEntity.wallet}}" class="img-fluid" style="max-width: 100%;" />
+    </div>
+</form>
+</body>
+</html>
