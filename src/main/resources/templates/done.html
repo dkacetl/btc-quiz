@@ -22,8 +22,9 @@
 <form class="form-signin" action="#" th:action="@{/process-form}" th:object="${userEntity}"  method="post">
     <div class="text-center mb-4">
         <h1 class="h1 mb-10 font-weight-normal">Děkujeme!</h1>
-        <p>Hotovo, zde si můžete stáhnout své Bitcoin mince</p>
-
+        <p>Hotovo, zde si můžete stáhnout své Bitcoin mince.</p>
+        <p class="text-danger">Neotálej. Je možné, že se peněženka zobrazila i někomu jinému.
+            Mince získá jen ten, který si je převede nejdříve.</p>
         <img th:src="@{'/wallets/' + ${userEntity.wallet}}" class="img-fluid" style="max-width: 100%;" />
     </div>
 </form>

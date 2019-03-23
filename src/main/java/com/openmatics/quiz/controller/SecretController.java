@@ -36,11 +36,12 @@ public class SecretController {
             existedEntity = userDao.find(userEntity.getEmail());
         }
         if (existedEntity != null) {
-          // do not regenerate wallet for email
+            // do not regenerate wallet for email
             userEntity.setWallet(existedEntity.getWallet());
             userDao.merge(userEntity);
         } else {
-            String wallet = walletService.randomWallet();
+            // wallet is based on hash of email
+            String wallet = walletService.hashWallet(userEntity.getEmail());
             userEntity.setWallet(wallet);
             userDao.persist(userEntity);
         }

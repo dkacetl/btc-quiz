@@ -26,7 +26,12 @@ public class WalletService {
 
     public String randomWallet() {
         String[] walletIds = wallets.keySet().toArray(new String[] {});
-        return walletIds[new Random().nextInt() % walletIds.length];
+        return walletIds[Math.abs(new Random().nextInt()) % walletIds.length];
+    }
+
+    public String hashWallet(String something) {
+        String[] walletIds = wallets.keySet().toArray(new String[] {});
+        return walletIds[Math.abs(something.hashCode()) % walletIds.length];
     }
 
     public Map<String, Resource> getWallets() {

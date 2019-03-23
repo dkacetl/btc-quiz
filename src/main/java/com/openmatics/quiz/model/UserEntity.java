@@ -1,8 +1,7 @@
 package com.openmatics.quiz.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 public class UserEntity {
@@ -28,6 +27,29 @@ public class UserEntity {
     @Column
     private String wallet;
 
+    @Column
+    //@Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime created;
+
+    @Column
+    //@Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime updated;
+
+    public LocalDateTime getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(LocalDateTime updated) {
+        this.updated = updated;
+    }
+
+    public LocalDateTime getCreated() {
+        return created;
+    }
+
+    public void setCreated(LocalDateTime created) {
+        this.created = created;
+    }
 
     public String getEmail() {
         return email;
@@ -83,5 +105,20 @@ public class UserEntity {
 
     public void setWallet(String wallet) {
         this.wallet = wallet;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder();
+        sb.append(email).append(';');
+        sb.append(nickname).append(';');
+        sb.append(phone).append(';');
+        sb.append(technologies).append(';');
+        sb.append(accomplishments).append(';');
+        sb.append(age).append(';');
+        sb.append(wallet).append(';');
+        sb.append(created).append(';');
+        sb.append(updated).append(';');
+        return sb.toString();
     }
 }
