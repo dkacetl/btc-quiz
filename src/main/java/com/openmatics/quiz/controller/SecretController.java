@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.Random;
 
 @Controller
@@ -27,11 +28,15 @@ public class SecretController {
     }
 
     @PostMapping("/process-form")
-    public String processForm(@ModelAttribute UserEntity userEntity) {
-
-        UserEntity existedEntity = userDao.find(userEntity.getEmail());
-        if (existedEntity!=null) {
-            // do not regenerate wallet for email
+    public String processForm(@ModelAttribute UserEntity userEntity, HttpSession httpSession) {
+        UserEntity existedEntity = null;
+        if (httpSession.getAttribute("userEntity")!=null) {
+            existedEntity = (UserEntity)(httpSession.getAttribute("userEntity"));
+        } else {
+            existedEntity = userDao.find(userEntity.getEmail());
+        }
+        if (existedEntity != null) {
+          // do not regenerate wallet for email
             userEntity.setWallet(existedEntity.getWallet());
             userDao.merge(userEntity);
         } else {
@@ -39,6 +44,7 @@ public class SecretController {
             userEntity.setWallet(wallet);
             userDao.persist(userEntity);
         }
+        httpSession.setAttribute("userEntity", userEntity);
 
         return "done.html";
     }
