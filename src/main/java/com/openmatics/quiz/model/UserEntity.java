@@ -35,6 +35,9 @@ public class UserEntity {
     //@Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime updated;
 
+    @Column
+    private String sessionId;
+
     public LocalDateTime getUpdated() {
         return updated;
     }
@@ -107,6 +110,14 @@ public class UserEntity {
         this.wallet = wallet;
     }
 
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder();
@@ -119,6 +130,7 @@ public class UserEntity {
         sb.append(wallet).append(';');
         sb.append(created).append(';');
         sb.append(updated).append(';');
+        sb.append(sessionId).append(';');
         return sb.toString();
     }
 }

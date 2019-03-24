@@ -26,4 +26,9 @@ public class IndexController {
         return "usersList.html";
     }
 
+    @GetMapping("/error")
+    public String error() {
+        return "error.html";
+    }
+
 }

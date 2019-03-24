@@ -29,15 +29,22 @@ public class SecretController {
 
     @PostMapping("/process-form")
     public String processForm(@ModelAttribute UserEntity userEntity, HttpSession httpSession) {
+        userEntity.setEmail(userEntity.getEmail().toLowerCase());
+
         UserEntity existedEntity = null;
         if (httpSession.getAttribute("userEntity")!=null) {
             existedEntity = (UserEntity)(httpSession.getAttribute("userEntity"));
         } else {
             existedEntity = userDao.find(userEntity.getEmail());
         }
+
+        // session is good for detect multi-mail users
+        userEntity.setSessionId(httpSession.getId());
+
         if (existedEntity != null) {
             // do not regenerate wallet for email
             userEntity.setWallet(existedEntity.getWallet());
+            userEntity.setEmail(existedEntity.getEmail());
             userDao.merge(userEntity);
         } else {
             // wallet is based on hash of email
