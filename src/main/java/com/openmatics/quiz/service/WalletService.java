@@ -10,37 +10,35 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.time.LocalDateTime;
+import java.time.temporal.TemporalField;
+import java.util.*;
 
 @Component
 public class WalletService {
 
+    private final int GROUPS_CNT = 3;
+
     private static final Logger LOGGER = LoggerFactory.getLogger(WalletService.class);
 
-    private Map<String, Resource> wallets = new HashMap<>();
+    private Set<String>[] walletsGroups = new Set[GROUPS_CNT];
 
     @Autowired
     private ResourceLoader resourceLoader;
 
-    public String randomWallet() {
-        String[] walletIds = wallets.keySet().toArray(new String[] {});
-        return walletIds[Math.abs(new Random().nextInt()) % walletIds.length];
-    }
-
-    public String hashWallet(String something) {
-        String[] walletIds = wallets.keySet().toArray(new String[] {});
+    public String hashWallet(int hour, String something) {
+        String[] walletIds = getWalletsGroup(hour);
         return walletIds[Math.abs(something.hashCode()) % walletIds.length];
     }
 
-    public Map<String, Resource> getWallets() {
-        return wallets;
+    private String[] getWalletsGroup(int hour) {
+        int group = Math.abs(hour) % GROUPS_CNT;
+        return walletsGroups[group].toArray(new String[] {});
     }
 
     @PostConstruct
     private void init() throws IOException {
-        wallets = loadWallets();
+        loadWallets();
     }
 
     /**
@@ -48,15 +46,17 @@ public class WalletService {
      * @return
      * @throws IOException
      */
-    public Map<String, Resource> loadWallets() throws IOException {
+    public void loadWallets() throws IOException {
         Resource[] wallets = ResourcePatternUtils.getResourcePatternResolver(resourceLoader).getResources("classpath:/static/wallets/*");
 
-        Map<String, Resource> result = new HashMap<>();
-
+        int index = 0;
         for (Resource wallet: wallets) {
             LOGGER.info("Loaded wallet:" + wallet.getFilename());
-            result.put(wallet.getFilename(), wallet);
+            if (walletsGroups[index%GROUPS_CNT]==null) {
+                walletsGroups[index%GROUPS_CNT] = new HashSet<>();
+            }
+            walletsGroups[index%GROUPS_CNT].add(wallet.getFilename());
+            index++;
         }
-        return result;
     }
 }

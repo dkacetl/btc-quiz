@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
+import java.time.LocalDateTime;
 import java.util.Random;
 
 @Controller
@@ -48,7 +49,7 @@ public class SecretController {
             userDao.merge(userEntity);
         } else {
             // wallet is based on hash of email
-            String wallet = walletService.hashWallet(userEntity.getEmail());
+            String wallet = walletService.hashWallet(LocalDateTime.now().getHour(), userEntity.getEmail());
             userEntity.setWallet(wallet);
             userDao.persist(userEntity);
         }
