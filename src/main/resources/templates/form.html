@@ -18,7 +18,7 @@
     <link href="/css/floating-labels.css" rel="stylesheet">
 </head>
 
-<body>
+<body style="padding-top: 0px;">
 <div class="container">
     <form class="form-signin" action="#" th:action="@{/process-form}" th:object="${userEntity}" method="post">
         <div class="text-center mb-4">
@@ -83,6 +83,10 @@
         </div>
 
         <button class="btn btn-lg btn-primary btn-block" type="submit">Odeslat</button>
+
+        <div class="mt-2" style="font-size:small;">
+            Informace o zpracování Vašich osobních dat a ohledně Vašich práv jsou obsahem našich <a href="/osobni_udaje.pdf">informací o Ochraně osobních údajů</a>.
+        </div>
 
     </form>
 
